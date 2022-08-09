@@ -43,8 +43,8 @@ const AddContactForm = ({ onAdd, contact, onSave }) => {
             onAdd({
               id: unique_id,
               name,
-              email: email,
-              password: password,
+              email,
+              password,
             })
           }
         />
