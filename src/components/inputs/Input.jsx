@@ -1,17 +1,21 @@
 import React from "react";
+import { classNames } from "../../utils";
 import "./Input.css";
 
-const classNames = (...classNames) =>
-  classNames.filter((className) => className).join(" ");
-
-const Input = ({ className, onChange, defaultValue }) => {
+const Input = ({
+  className,
+  onChange,
+  defaultValue,
+  type = "text",
+  required = false,
+}) => {
   return (
     <input
       className={classNames("inp", className)}
       onChange={onChange}
-      type="text"
+      type={type}
       defaultValue={defaultValue}
-      required
+      required={required}
     />
   );
 };
