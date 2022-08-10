@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import { v4 as uuid } from "uuid";
+import Button from "../../buttons/Button";
 import Input from "../../inputs/Input";
-import CreateButton from "../../buttons/createButton/CreateButton";
-import SaveButton from "../../buttons/saveButton/SaveButton";
 import "./AddContactForm.css";
 
-const AddContactForm = ({ onAdd, contact, onSave }) => {
+const AddContactForm = ({ contact, confirmButton, onCancel }) => {
   const [name, setName] = useState(contact?.name || "");
   const [email, setEmail] = useState(contact?.email || "");
   const [password, setPassword] = useState(contact?.password || "");
-
-  const unique_id = uuid();
 
   return (
     <div className="form-container">
@@ -38,22 +34,10 @@ const AddContactForm = ({ onAdd, contact, onSave }) => {
       />
 
       <div className="button-container">
-        <CreateButton
-          onAdd={() =>
-            onAdd({
-              id: unique_id,
-              name,
-              email,
-              password,
-            })
-          }
-        />
-
-        <SaveButton
-          onSave={() =>
-            onSave({ ...contact, name: name, email: email, password: password })
-          }
-        />
+        <Button className="cancelBtn" onClick={onCancel}>
+          Cancel
+        </Button>
+        {confirmButton({ name, email, password })}
       </div>
     </div>
   );

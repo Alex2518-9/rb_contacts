@@ -2,9 +2,10 @@ import React from 'react';
 import Button from '../Button';
 import './CreateButton.css';
 
-const CreateButton = ({onAdd}) => {
+
+const CreateButton = ({onClick, children}) => {
   return (
-    <Button className="createBtn" onClick={onAdd}>Create</Button>
+    <Button className="createBtn addBtn cancelBtn" onClick={onClick}>{children}</Button>
   )
 }
 

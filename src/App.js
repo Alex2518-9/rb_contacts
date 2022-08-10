@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import "./App.css";
-import AddContactButton from "./components/buttons/addContactButton/AddContactButton";
+import CreateButton from "./components/buttons/createButton/CreateButton";
 import DeleteButton from "./components/buttons/deleteButton/DeleteButton";
 import EditButton from "./components/buttons/editButton/EditButton";
+import SaveButton from "./components/buttons/saveButton/SaveButton";
 import AddContactForm from "./components/forms/addContactForm/AddContactForm";
+import { v4 as uuid } from "uuid";
+import Button from "./components/buttons/Button";
+
+//import EditContactForm from "./components/forms/editContactForm/EditContactForm";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -18,13 +23,13 @@ function App() {
   const onEdit = (id) => {
     const [editedRow] = users.filter((item) => item.id === id);
     setEditTableData(editedRow);
-    setMode("add");
+    setMode("edit");
   };
 
-  const onSave = (newContact) => {
+  const onSave = (updateContact) => {
     const newUsersList = users.map((contact) => {
-      if (contact.id === newContact.id) {
-        return newContact;
+      if (contact.id === updateContact.id) {
+        return updateContact;
       }
       return contact;
     });
@@ -65,13 +70,50 @@ function App() {
               ))}
             </tbody>
           </table>
-
-          <AddContactButton moveToAddContactForm={() => setMode("add")} />
+          <CreateButton onClick={() => setMode("add")}>
+            Add Contact
+          </CreateButton>
         </>
       )}
 
       {mode === "add" && (
-        <AddContactForm onAdd={onAdd} onSave={onSave} contact={editTableData} />
+        <AddContactForm
+          onCancel={() => setMode("home")}
+          confirmButton={(newContact) => (
+            <>
+              <CreateButton
+                onClick={() =>
+                  onAdd({
+                    id: uuid(),
+                    ...newContact,
+                  })
+                }
+              >
+                Create
+              </CreateButton>
+            </>
+          )}
+        />
+      )}
+
+      {mode === "edit" && (
+        <AddContactForm
+          onCancel={() => setMode("home")}
+          onSave={onSave}
+          contact={editTableData}
+          confirmButton={(contact) => (
+            <>
+              <SaveButton
+                onSave={() =>
+                  onSave({
+                    ...editTableData,
+                    ...contact,
+                  })
+                }
+              />
+            </>
+          )}
+        />
       )}
     </div>
   );
