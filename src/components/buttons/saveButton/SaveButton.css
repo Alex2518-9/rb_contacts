@@ -1,5 +1,7 @@
 .saveBtn{
+    margin-top: 10px;
     width: 200px;
     background-color: aquamarine;
     margin-left: 5px;
+    height: 40px;
 }
