@@ -5,7 +5,7 @@ import './CreateButton.css';
 
 const CreateButton = ({onClick, children}) => {
   return (
-    <Button className="createBtn addBtn cancelBtn" onClick={onClick}>{children}</Button>
+    <Button className="createBtn addBtn" onClick={onClick}>{children}</Button>
   )
 }
 

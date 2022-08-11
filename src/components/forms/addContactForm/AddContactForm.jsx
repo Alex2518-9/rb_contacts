@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Button from "../../buttons/Button";
+import CancelButton from "../../buttons/cancelButton/CancelButton";
 import Input from "../../inputs/Input";
 import "./AddContactForm.css";
 
@@ -34,9 +35,10 @@ const AddContactForm = ({ contact, confirmButton, onCancel }) => {
       />
 
       <div className="button-container">
-        <Button className="cancelBtn" onClick={onCancel}>
+        <CancelButton  onCancel={onCancel}/>
+        {/* <Button className="cancelBtn" onClick={onCancel}>
           Cancel
-        </Button>
+        </Button> */}
         {confirmButton({ name, email, password })}
       </div>
     </div>
