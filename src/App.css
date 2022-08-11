@@ -1,75 +1,209 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
-
-.App{
+.App {
+  position: relative;
   width: 100vw;
   height: 100vh;
   display: flex;
-  /* justify-content: center; */
-  align-items: center;
   flex-direction: column;
+  background-color: #1e1e1e;
+  background-size: cover;
 }
 
-
-
-.contacts{
-  width: 700px;
-  height: 500px;
+.App-light {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  justify-content: center;
-  
   flex-direction: column;
-  border-collapse: collapse;
-  
-  
-  
+  background-color: #fff;
+  background-size: cover;
 }
 
-.contacts thead tr{
+.switch {
+  width: 100%;
+  padding: 56px 0 0 56px;
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  width: 64px;
+  height: 32px;
+  background-color: #e9e9e9;
+  border-radius: 8px;
+}
+
+.moon {
+  padding: 9px;
+  width: 32px;
+  background: #ff6b35;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.sun {
+  padding: 9px;
+  width: 32px;
+  cursor: pointer;
+}
+
+.contact-container-title-dark {
+  display: flex;
+  width: 153px;
+  height: 47px;
+  margin-left: 351px;
+  margin-top: 168px;
+}
+
+.contact-container-title-light {
+  display: flex;
+  width: 153px;
+  height: 47px;
+  margin-left: 351px;
+  margin-top: 168px;
+}
+
+.contact-container-title-dark h1 {
+  color: #ff6b35;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 47px;
+}
+
+.contact-container-title-light h1 {
+  color: #ff6b35;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 47px;
+}
+
+/* dark table */
+.contact-container-body-dark {
+  padding: 0;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  width: 1218px;
+  height: 1035px;
+  margin-left: 351px;
+  overflow-y: hidden;
+}
+
+.contact-container-body-dark thead {
+  width: 100%;
+  height: 56px;
+  background: #363636;
   display: flex;
   flex-direction: row;
-  
+  border-radius: 8px 8px 0 0;
 }
 
-.contacts th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #04AA6D;
+.contact-container-body-dark thead tr {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  color: white;
+  gap: 493px;
+}
+
+.contact-container-body-dark thead .head-texts {
+  width: 564px;
+  display: flex;
+  gap: 414px;
+  margin-left: 24px;
+}
+
+.contact-container-body-dark tbody .sor {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 24px;
+  gap: 24px;
   color: white;
   width: 100%;
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
+  height: 56px;
+  background: #2a2a2a;
 }
 
+.contact-container-body-dark tbody .sor:nth-child(even) {
+  background-color: #313131;
+}
 
+.contact-container-body-dark tbody .sor:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
 
-.contacts tbody tr{
+/* light table */
+
+.contact-container-body-light {
+  padding: 0;
+  border-radius: 8px;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  width: 1218px;
+  height: 1035px;
+  margin-left: 351px;
+  overflow-y: hidden;
+}
+
+.contact-container-body-light thead {
+  width: 100%;
+  height: 56px;
+  background: #dbdbdb;
+  display: flex;
+  flex-direction: row;
+  border-radius: 8px 8px 0 0;
+}
+
+.contact-container-body-light thead tr {
+  display: flex;
   align-items: center;
   flex-direction: row;
-  border: 1px solid #000;
-  height: 38px;
-  padding: 5px;
+  color: rgba(0, 0, 0, 0.85);
+  gap: 493px;
 }
 
-.contacts tbody tr td{
+.contact-container-body-light thead .head-texts {
+  width: 564px;
   display: flex;
-  justify-content: center;
-  width: 33%;
+  gap: 414px;
+  margin-left: 24px;
 }
 
-.contacts tr:nth-child(even){background-color: #f2f2f2;}
+.contact-container-body-light tbody .sor {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 24px;
+  gap: 24px;
+  color: rgba(0, 0, 0, 0.85);
+  width: 100%;
+  height: 56px;
+  background: #e4e4e4;
+}
 
-.contacts tr:hover {background-color: #ddd;}
+.contact-container-body-light tbody .sor:nth-child(even) {
+  background-color: #dbdbdb;
+}
 
+.contact-container-body-light tbody .sor:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
 
-
-
+/* creatte dark button*/
+/* .create-dark-button{
+  background-color: rgb(207, 139, 12) !important;
+  padding: 5px;
+  width: 200px !important;
+  height: 40px !important;
+} */
