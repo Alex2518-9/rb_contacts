@@ -3,10 +3,10 @@ import Button from '../Button';
 import './CreateButton.css';
 
 
-const CreateButton = ({onClick, children}) => {
+const CreateButton = ({onClick, children, darkTheme}) => {
   return (
-    <Button className="createBtn addBtn" onClick={onClick}>{children}</Button>
+    <Button className={darkTheme ? "add-dark-button" : "add-light-button"} onClick={onClick}>{children}</Button>
   )
 }
-
+ //className=" addBtn"
 export default CreateButton

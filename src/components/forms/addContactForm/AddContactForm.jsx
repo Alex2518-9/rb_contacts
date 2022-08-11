@@ -1,45 +1,48 @@
 import React, { useState } from "react";
-import Button from "../../buttons/Button";
 import CancelButton from "../../buttons/cancelButton/CancelButton";
 import Input from "../../inputs/Input";
 import "./AddContactForm.css";
 
-const AddContactForm = ({ contact, confirmButton, onCancel }) => {
+const AddContactForm = ({ contact, confirmButton, onCancel, darkTheme, formTitle }) => {
   const [name, setName] = useState(contact?.name || "");
   const [email, setEmail] = useState(contact?.email || "");
   const [password, setPassword] = useState(contact?.password || "");
 
   return (
-    <div className="form-container">
-      <h2>Create Contact</h2>
+    <div className="container">
+      <div className={darkTheme ? "form-container-dark" : "form-container-light"}>
+        <h2>
+          { formTitle === "add" && "Create Contact"}
+          { formTitle === "edit" && "Edit Contact"}
+        </h2>
+            
+    
 
-      <label className="lb">Username</label>
-      <Input
-        className="inp"
-        onChange={(e) => setName(e.target.value)}
-        defaultValue={contact?.name}
-      />
+        <label className="label">Username</label>
+        <Input
+          className="form-input"
+          onChange={(e) => setName(e.target.value)}
+          defaultValue={contact?.name}
+        />
 
-      <label className="lb">Email</label>
-      <Input
-        className="inp"
-        onChange={(e) => setEmail(e.target.value)}
-        defaultValue={contact?.email}
-      />
+        <label className="label">Email</label>
+        <Input
+          className="form-input"
+          onChange={(e) => setEmail(e.target.value)}
+          defaultValue={contact?.email}
+        />
 
-      <label className="lb">Password</label>
-      <Input
-        className="inp"
-        onChange={(e) => setPassword(e.target.value)}
-        defaultValue={contact?.password}
-      />
+        <label className="label">Password</label>
+        <Input
+          className="form-input"
+          onChange={(e) => setPassword(e.target.value)}
+          defaultValue={contact?.password}
+        />
 
-      <div className="button-container">
-        <CancelButton  onCancel={onCancel}/>
-        {/* <Button className="cancelBtn" onClick={onCancel}>
-          Cancel
-        </Button> */}
-        {confirmButton({ name, email, password })}
+        <div className="button-container">
+          <CancelButton onCancel={onCancel} />
+          {confirmButton({ name, email, password })}
+        </div>
       </div>
     </div>
   );

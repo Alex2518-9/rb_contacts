@@ -2,9 +2,9 @@ import React from 'react';
 import Button from '../Button';
 import './EditButton.css';
 
-const EditButton = ({onEdit}) => {
+const EditButton = ({onEdit, darkTheme}) => {
   return (
-        <Button className="editBtn" onClick={onEdit}>Edit</Button>
+        <Button className={darkTheme ? "edit-dark-button" : "edit-light-button"} onClick={onEdit}>Edit</Button>
   )
 }
 
