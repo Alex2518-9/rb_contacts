@@ -1,4 +1,46 @@
-.deleteBtn {
-  width: 80px;
-  background-color: red;
+/* dark delete button*/
+.delete-dark-button {
+  width: 96px;
+  height: 32px;
+  background: #2a2a2a;
+  border: 1px solid #565656;
+  border-radius: 8px;
+  color: white;
+  padding: 4px 16px;
+  gap: 10px;
 }
+
+.delete-dark-button:hover {
+  background: #3f3f3f;
+  border: 1px solid #ff6b35;
+}
+
+.delete-dark-button:focus {
+  background: #1e1e1e;
+  border: 1px solid #ff6b35;
+  box-shadow: 0px 0px 3px 3px rgba(255, 107, 53, 0.24);
+}
+
+/* light delete button*/
+.delete-light-button {
+  width: 96px;
+  height: 32px;
+  background-color: #f1f1f1;
+  border: 1px solid #c7c7c7;
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.75);
+  padding: 4px 16px;
+  gap: 10px;
+}
+
+.delete-light-button:hover {
+  border: 1px solid #ff6b35;
+}
+
+.delete-light-button:focus {
+  background: #c7c7c7;
+  border: 1px solid #ff6b35;
+  box-shadow: 0px 0px 3px 3px rgba(255, 107, 53, 0.24);
+}
+
+
