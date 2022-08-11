@@ -6,107 +6,155 @@ import EditButton from "./components/buttons/editButton/EditButton";
 import SaveButton from "./components/buttons/saveButton/SaveButton";
 import AddContactForm from "./components/forms/addContactForm/AddContactForm";
 import { v4 as uuid } from "uuid";
-
-
-
+import { BsMoon } from "react-icons/bs";
+import { BsSun } from "react-icons/bs";
+import { AiOutlinePlus } from "react-icons/ai";
 
 function App() {
-  const [users, setUsers] = useState([]);
+  const [contacts, setContacts] = useState([]);
   const [mode, setMode] = useState("home");
-  const [editTableData, setEditTableData] = useState();
+  const [editContactData, setEditContactData] = useState();
+  const [darkTheme, setDarkTheme] = useState(true);
+
+  console.log(darkTheme);
 
   const onDelete = (id) => {
-    const newList = users.filter((item) => item.id !== id);
-    setUsers(newList);
+    setContacts((previouaState) =>
+      previouaState.filter((item) => item.id !== id)
+    );
   };
 
   const onEdit = (id) => {
-    const [editedRow] = users.filter((item) => item.id === id);
-    setEditTableData(editedRow);
+    const [editedRow] = contacts.filter((item) => item.id === id);
+    setEditContactData(editedRow);
     setMode("edit");
   };
 
   const onSave = (updateContact) => {
-    const newUsersList = users.map((contact) => {
+    const newUsersList = contacts.map((contact) => {
       if (contact.id === updateContact.id) {
         return updateContact;
       }
       return contact;
     });
-    setUsers(newUsersList);
+    setContacts(newUsersList);
     setMode("home");
-    setEditTableData(undefined);
+    setEditContactData(undefined);
   };
 
   const onAdd = (newUser) => {
-    setUsers([newUser, ...users]);
+    setContacts([newUser, ...contacts]);
     setMode("home");
   };
 
+  const onLight = () => {
+    setDarkTheme(false);
+  };
+
+  const onDark = () => {
+    setDarkTheme(true);
+  };
+
   return (
-    <div className="App">
-      <h1>Contacts</h1>
+    <div className={darkTheme ? "App" : ".App-light"}>
+      <div className="switch">
+        <div className="switch-container">
+          <div className={darkTheme ? "moon" : "sun"} onClick={onDark}>
+            <BsMoon />
+          </div>
+          <div className={darkTheme ? "sun" : "moon"} onClick={onLight}>
+            <BsSun />
+          </div>
+        </div>
+      </div>
 
       {mode === "home" && (
         <>
-          <table className="contacts">
+          <div
+            className={
+              darkTheme
+                ? "contact-container-title-dark"
+                : "contact-container-title-light"
+            }
+          >
+            <h1>Contacts</h1>
+          </div>
+          <table
+            className={
+              darkTheme
+                ? "contact-container-body-dark"
+                : "contact-container-body-light"
+            }
+          >
             <thead>
               <tr>
-                <th>Username</th>
-                <th>Email</th>
+                <div className="head-texts">
+                  <th>Username</th>
+                  <th>Email</th>
+                </div>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {users.map(({ id, name, email }) => (
+              {contacts.map(({ id, name, email }) => (
                 <tr className="sor" key={id}>
                   <td>{name}</td>
                   <td>{email}</td>
                   <td>
-                    <DeleteButton onDelete={() => onDelete(id)} />
-                    <EditButton onEdit={() => onEdit(id)} />
+                    <div className="action-button-container">
+                      <DeleteButton
+                        darkTheme={darkTheme}
+                        onDelete={() => onDelete(id)}
+                      />
+                      <EditButton
+                        darkTheme={darkTheme}
+                        onEdit={() => onEdit(id)}
+                      />
+                    </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <CreateButton onClick={() => setMode("add")}>
-            Add Contact
+          <CreateButton darkTheme={darkTheme} onClick={() => setMode("add")}>
+            <AiOutlinePlus />
           </CreateButton>
         </>
       )}
 
       {mode === "add" && (
         <AddContactForm
+          formTitle={mode}
+          darkTheme={darkTheme}
           onCancel={() => setMode("home")}
           confirmButton={(newContact) => (
-            <>
-              <CreateButton
-                onClick={() =>
-                  onAdd({
-                    id: uuid(),
-                    ...newContact,
-                  })
-                }
-              >
-                Create
-              </CreateButton>
-            </>
+            <CreateButton
+              onClick={() =>
+                onAdd({
+                  id: uuid(),
+                  ...newContact,
+                })
+              }
+            >
+              Create
+            </CreateButton>
           )}
         />
       )}
 
       {mode === "edit" && (
         <AddContactForm
+          formTitle={mode}
+          darkTheme={darkTheme}
           onCancel={() => setMode("home")}
           onSave={onSave}
-          contact={editTableData}
+          contact={editContactData}
           confirmButton={(contact) => (
             <>
               <SaveButton
                 onSave={() =>
                   onSave({
-                    ...editTableData,
+                    ...editContactData,
                     ...contact,
                   })
                 }
