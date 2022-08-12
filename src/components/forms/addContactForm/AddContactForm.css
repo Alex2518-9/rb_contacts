@@ -1,6 +1,6 @@
 /* dark form */
 
-.container{
+.container {
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -16,7 +16,6 @@
   height: 700px;
 }
 
-
 .form-container-dark h2 {
   margin-bottom: 30px;
   color: white;
@@ -29,7 +28,7 @@
   color: white;
 }
 
-.button-container{
+.button-container {
   display: flex;
   flex-direction: row;
   gap: 10px;
