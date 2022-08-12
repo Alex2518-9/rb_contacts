@@ -1,26 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AddContactFormButton from "../../buttons/addContactFormButton/AddContactFormButton";
 import CancelButton from "../../buttons/cancelButton/CancelButton";
 import Input from "../../inputs/Input";
 import "./AddContactForm.css";
 import { v4 as uuid } from "uuid";
+import { ThemeContexts } from "../../../App";
 
 const AddContactForm = ({
   contact,
   confirmButton,
   onAdd,
   onCancel,
-  darkTheme,
   formTitle,
 }) => {
   const [name, setName] = useState(contact?.name || "");
   const [email, setEmail] = useState(contact?.email || "");
   const [password, setPassword] = useState(contact?.password || "");
 
+  const uniqueId = uuid();
+
+  const {theme} = useContext(ThemeContexts);
+
   return (
     <div className="container">
       <div
-        className={darkTheme ? "form-container-dark" : "form-container-light"}
+        className={`form-container ${theme}`}
       >
         <h2>
           {formTitle === "add" && "Create Contact"}
@@ -52,7 +56,7 @@ const AddContactForm = ({
           <CancelButton onCancel={onCancel} />
           {formTitle === "add" && (
             <AddContactFormButton
-              onAdd={() => onAdd({ name, email, password, id: uuid })}
+              onAdd={() => onAdd({ name, email, password, id: uniqueId })}
             />
           )}
           {formTitle === "edit" && confirmButton({ name, email, password })}
