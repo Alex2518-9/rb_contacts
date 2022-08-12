@@ -1,4 +1,10 @@
-/* dark form */
+.light {
+  --font-color: #000;
+}
+
+.dark {
+  --font-color: #fff;
+}
 
 .container {
   width: 100vw;
@@ -6,7 +12,7 @@
   justify-content: center;
 }
 
-.form-container-dark {
+.form-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,16 +22,16 @@
   height: 700px;
 }
 
-.form-container-dark h2 {
+.form-container h2 {
   margin-bottom: 30px;
-  color: white;
+  color: var(--font-color);
 }
 
-.form-container-dark .label {
+.form-container .label {
   font-weight: 700;
   display: flex;
   margin: 10px 0 3px 0;
-  color: white;
+  color: var(--font-color);
 }
 
 .button-container {
@@ -33,28 +39,4 @@
   flex-direction: row;
   gap: 10px;
   margin-top: 10px;
-}
-
-/* light form */
-
-.form-container-light {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-  width: 500px;
-  height: 700px;
-}
-
-.form-container-light h2 {
-  margin-bottom: 30px;
-  color: black;
-}
-
-.form-container-light .label {
-  font-weight: 700;
-  display: flex;
-  margin: 10px 0 3px 0;
-  color: black;
 }
