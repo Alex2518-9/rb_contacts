@@ -5,7 +5,6 @@ import DeleteButton from "./components/buttons/deleteButton/DeleteButton";
 import EditButton from "./components/buttons/editButton/EditButton";
 import SaveButton from "./components/buttons/saveButton/SaveButton";
 import AddContactForm from "./components/forms/addContactForm/AddContactForm";
-import { v4 as uuid } from "uuid";
 import { BsMoon } from "react-icons/bs";
 import { BsSun } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -16,11 +15,9 @@ function App() {
   const [editContactData, setEditContactData] = useState();
   const [darkTheme, setDarkTheme] = useState(true);
 
-  console.log(darkTheme);
-
   const onDelete = (id) => {
-    setContacts((previouaState) =>
-      previouaState.filter((item) => item.id !== id)
+    setContacts((previouState) =>
+      previouState.filter((item) => item.id !== id)
     );
   };
 
@@ -127,18 +124,7 @@ function App() {
           formTitle={mode}
           darkTheme={darkTheme}
           onCancel={() => setMode("home")}
-          confirmButton={(newContact) => (
-            <CreateButton
-              onClick={() =>
-                onAdd({
-                  id: uuid(),
-                  ...newContact,
-                })
-              }
-            >
-              Create
-            </CreateButton>
-          )}
+          onAdd={onAdd}
         />
       )}
 
