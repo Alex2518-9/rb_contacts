@@ -6,15 +6,23 @@
 }
 
 .light {
+  --action-button-bg-color:#f1f1f1;
+  --action-button-border-color: #c7c7c7;
+  --action-button-bg-hover-color:#f6f6f6;
+  --action-button-bg-focus-color: #c7c7c7;
   --bg-color: #fff;
   --font-color: rgba(0, 0, 0, 0.85);
   --table-head-bg: #dbdbdb;
   --table-row-bg: #e4e4e4;
   --table-child-row-bg: #dbdbdb;
-  --table-child-row-bg-hover: rgba(0, 0, 0, 0.2);
+  --table-row-bg-hover: rgba(0, 0, 0, 0.2);
 }
 
 .dark {
+  --action-button-bg-color:#2a2a2a;
+  --action-button-border-color:#565656;
+  --action-button-bg-hover-color:#3f3f3f;
+  --action-button-bg-focus-color:#1e1e1e;
   --bg-color: #1e1e1e;
   --font-color: #fff;
   --table-head-bg: #313131;
@@ -110,7 +118,7 @@
 .contact-container-body thead .head-texts {
   width: 564px;
   display: flex;
-  gap: 414px;
+  gap: 254px;
   margin-left: 24px;
 }
 
@@ -134,3 +142,19 @@
 .contact-container-body tbody .sor:hover {
   background-color: var(--table-row-bg-hover);
 }
+
+.contact-container-body tbody .sor i{
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.contact-container-body tbody .sor input{
+  width: 60px;
+  border: none;
+  background: transparent;
+  color: var(--font-color);
+}
+
+
+
+
