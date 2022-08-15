@@ -1,24 +1,8 @@
-.light {
-  --bg-color: #f1f1f1;
-  --border-color: #c7c7c7;
-  --font-color: rgba(0, 0, 0, 0.75);
-  --bg-hover-color: #f6f6f6;
-  --bg-focus-color: #c7c7c7;
-}
-
-.dark {
-  --bg-color: #2a2a2a;
-  --border-color: #565656;
-  --font-color: #fff;
-  --bg-hover-color: #3f3f3f;
-  --bg-focus-color: #1e1e1e;
-}
-
 .delete-button {
   width: 96px;
   height: 32px;
-  background: var(--bg-color);
-  border: 1px solid var(--border-color);
+  background: var(--action-button-bg-color);
+  border: 1px solid var(--action-button-border-color);
   border-radius: 8px;
   color: var(--font-color);
   padding: 4px 16px;
@@ -26,12 +10,12 @@
 }
 
 .delete-button:hover {
-  background: var(--bg-hover-color);
+  background: var(--action-button-bg-hover-color);
   border: 1px solid #ff6b35;
 }
 
 .delete-button:focus {
-  background: var(--bg-focus-color);
+  background: var(--action-button-bg-focus-color);
   border: 1px solid #ff6b35;
   box-shadow: 0px 0px 3px 3px rgba(255, 107, 53, 0.24);
 }
