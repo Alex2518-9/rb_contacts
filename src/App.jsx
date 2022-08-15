@@ -8,7 +8,11 @@ import SaveButton from "./components/buttons/saveButton/SaveButton";
 import AddContactForm from "./components/forms/addContactForm/AddContactForm";
 import { BsMoon } from "react-icons/bs";
 import { BsSun } from "react-icons/bs";
-import { AiOutlinePlus } from "react-icons/ai";
+import {
+  AiOutlineEye,
+  AiOutlinePlus,
+  AiOutlineEyeInvisible,
+} from "react-icons/ai";
 
 export const ThemeContexts = createContext();
 
@@ -17,7 +21,9 @@ function App() {
   const [mode, setMode] = useState("home");
   const [editContactData, setEditContactData] = useState();
   const [theme, setTheme] = useState("dark");
+  const [selectedPassword, setSelectedPassword] = useState([]);
 
+  console.log();
   const onDelete = (id) => {
     setContacts((previouState) =>
       previouState.filter((item) => item.id !== id)
@@ -55,8 +61,31 @@ function App() {
     setTheme("dark");
   };
 
+  const onShowAndHidePassword = (id) => {
+     const [changePasswordRow] = contacts.filter((item) => item.id === id);
+    // setSelectedPassword([...selectedPassword, changePasswordRow])
+    // selectedPassword.push(changePasswordRow)
+    // setSelectedPassword([...changePasswordRow]);
+    // const keyIndex = selectedPassword.indexOf(id);
+
+    // if (keyIndex >= 0 ) {
+    //   setSelectedPassword([...selectedPassword.slice(0, keyIndex), selectedPassword.slice(keyIndex + 1)])
+    // }else{
+    //   selectedPassword.push(id)
+    // }
+
+    // setSelectedPassword({selectedPassword});
+    
+    console.log(selectedPassword);
+    if (selectedPassword?.id === changePasswordRow.id) {
+      setSelectedPassword();
+    }else{
+      setSelectedPassword(changePasswordRow);
+    }
+  };
+
   return (
-    <ThemeContexts.Provider value={{ theme }}>
+    <ThemeContexts.Provider>
       <div className={`App ${theme}`}>
         <div className="switch">
           <div className="switch-container">
@@ -74,28 +103,33 @@ function App() {
 
         {mode === "home" && (
           <>
-            <div
-              className="contact-container-title"
-            >
+            <div className="contact-container-title">
               <h1>Contacts</h1>
             </div>
-            <table
-              className={`contact-container-body ${theme}`}
-            >
+            <table className={`contact-container-body`}>
               <thead>
                 <tr>
                   <div className="head-texts">
                     <th>Username</th>
                     <th>Email</th>
+                    <th>Password</th>
                   </div>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {contacts.map(({ id, name, email }) => (
+                {contacts.map(({ id, name, email, password }) => (
                   <tr className="sor" key={id}>
                     <td>{name}</td>
                     <td>{email}</td>
+                    <td>
+                      <input type={selectedPassword?.id === id ? "text" : "password"} value={password} disabled />
+                      <i onClick={() => onShowAndHidePassword(id)}>
+                      {selectedPassword?.id === id ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+                        
+                      </i>
+                    </td>
+
                     <td>
                       <div className="action-button-container">
                         <DeleteButton onDelete={() => onDelete(id)} />
