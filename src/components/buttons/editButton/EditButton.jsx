@@ -1,16 +1,13 @@
-import React, { useContext } from 'react';
-import { ThemeContexts } from "../../../App";
-import Button from '../Button';
-import './EditButton.css';
+import React from "react";
+import Button from "../Button";
+import "./EditButton.css";
 
-const EditButton = ({onEdit}) => {
-
-  const {theme} = useContext(ThemeContexts);
-
-
+const EditButton = ({ onEdit }) => {
   return (
-        <Button className={`edit-button ${theme}`} onClick={onEdit}>Edit</Button>
-  )
-}
+    <Button className={`edit-button`} onClick={onEdit}>
+      Edit
+    </Button>
+  );
+};
 
-export default EditButton
+export default EditButton;

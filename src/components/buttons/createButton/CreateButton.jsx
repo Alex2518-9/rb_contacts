@@ -1,14 +1,13 @@
-import React, { useContext } from "react";
-import { ThemeContexts } from "../../../App";
+import React from "react";
 import Button from "../Button";
 import "./CreateButton.css";
 
 const CreateButton = ({ onClick, children }) => {
-  const { theme } = useContext(ThemeContexts);
+ 
 
   return (
     <Button
-      className={theme === "dark" ? "add-dark-button" : "add-light-button"}
+      className={`add-button`}
       onClick={onClick}
     >
       {children}

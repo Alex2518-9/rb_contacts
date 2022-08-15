@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
-import { ThemeContexts } from '../../../App';
+import React from 'react';
+
 import Button from '../Button';
 import './DeleteButton.css';
 
 const DeleteButton = ({onDelete}) => {
 
-  const {theme} = useContext(ThemeContexts);
+  
 
   return (
-    <Button className={`delete-button ${theme}`} onClick={onDelete}>Delete</Button>
+    <Button className={`delete-button`} onClick={onDelete}>Delete</Button>
   )
 }
 

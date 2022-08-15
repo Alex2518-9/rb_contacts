@@ -1,10 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import AddContactFormButton from "../../buttons/addContactFormButton/AddContactFormButton";
 import CancelButton from "../../buttons/cancelButton/CancelButton";
 import Input from "../../inputs/Input";
 import "./AddContactForm.css";
 import { v4 as uuid } from "uuid";
-import { ThemeContexts } from "../../../App";
 
 const AddContactForm = ({
   contact,
@@ -12,6 +11,7 @@ const AddContactForm = ({
   onAdd,
   onCancel,
   formTitle,
+  value,
 }) => {
   const [name, setName] = useState(contact?.name || "");
   const [email, setEmail] = useState(contact?.email || "");
@@ -19,13 +19,9 @@ const AddContactForm = ({
 
   const uniqueId = uuid();
 
-  const {theme} = useContext(ThemeContexts);
-
   return (
     <div className="container">
-      <div
-        className={`form-container ${theme}`}
-      >
+      <div className={`form-container`}>
         <h2>
           {formTitle === "add" && "Create Contact"}
           {formTitle === "edit" && "Edit Contact"}
