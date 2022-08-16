@@ -8,7 +8,9 @@ const Input = ({
   defaultValue,
   type = "text",
   required = false,
-  value
+  value,
+  placeholder,
+  disabled
 }) => {
   return (
     <input
@@ -18,6 +20,8 @@ const Input = ({
       defaultValue={defaultValue}
       required={required}
       value={value}
+      placeholder={placeholder}
+      disabled={disabled}
     />
   );
 };
