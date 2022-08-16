@@ -1,0 +1,9 @@
+.inp{
+    width: 250px;
+    background: var(--table-row-bg);
+    color: var(--font-color);
+    border: 1px solid #ff6b35;
+    outline: none;
+    border-radius: 8px;
+    padding: 5px;
+}
