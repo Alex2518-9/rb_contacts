@@ -11,13 +11,14 @@ const AddContactForm = ({
   onAdd,
   onCancel,
   formTitle,
-  value,
 }) => {
   const [name, setName] = useState(contact?.name || "");
   const [email, setEmail] = useState(contact?.email || "");
   const [password, setPassword] = useState(contact?.password || "");
 
   const uniqueId = uuid();
+
+  let randomString = (Math.random() + 1).toString(36).substring(7);
 
   return (
     <div className="container">
@@ -31,6 +32,7 @@ const AddContactForm = ({
         <Input
           className="form-input"
           onChange={(e) => setName(e.target.value)}
+          value={randomString}
           defaultValue={contact?.name}
         />
 
@@ -38,6 +40,7 @@ const AddContactForm = ({
         <Input
           className="form-input"
           onChange={(e) => setEmail(e.target.value)}
+          value={randomString}
           defaultValue={contact?.email}
         />
 
@@ -45,6 +48,7 @@ const AddContactForm = ({
         <Input
           className="form-input"
           onChange={(e) => setPassword(e.target.value)}
+          value={randomString}
           defaultValue={contact?.password}
         />
 
