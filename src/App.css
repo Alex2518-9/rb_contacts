@@ -5,6 +5,8 @@
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
+
+
 .light {
   --action-button-bg-color:#f1f1f1;
   --action-button-border-color: #c7c7c7;
@@ -39,6 +41,7 @@
   flex-direction: column;
   background-color: var(--bg-color);
   background-size: cover;
+
 }
 
 .switch {
@@ -73,11 +76,24 @@
 
 .contact-container-title {
   display: flex;
-  width: 153px;
+  width: 1218px;
   height: 47px;
   margin-left: 351px;
   margin-top: 168px;
+  justify-content: space-between;
+  padding-bottom: 10px;
 }
+
+.contact-container-title .searchInput{
+  width: 250px;
+  background: var(--table-row-bg);
+  border: 1px solid #ff6b35;
+  outline: none;
+  border-radius: 8px;
+  padding: 5px;
+  color: var(--font-color);
+}
+
 
 .contact-container-title h1 {
   color: var(--contact-container-title-color);
@@ -119,7 +135,20 @@
   width: 564px;
   display: flex;
   gap: 254px;
-  margin-left: 24px;
+  margin-left: 15px;
+  align-items: center;
+}
+
+.contact-container-body thead .head-texts th{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-container-body thead .head-texts th i{
+  font-size: 25px;
+  cursor: pointer;
 }
 
 .contact-container-body tbody .sor {
