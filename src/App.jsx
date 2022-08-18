@@ -17,28 +17,33 @@ import PasswordInput from "./components/inputs/passwordInput/PasswordInput";
 //import SearchInput from "./components/inputs/searchInput/SearchInput";
 
 // export const ThemeContexts = createContext();
-// dsfsdf
+
 function App() {
   const [contacts, setContacts] = useState([]);
   const [mode, setMode] = useState("home");
   const [editContactData, setEditContactData] = useState();
   const [theme, setTheme] = useState("dark");
   const [search, setSearch] = useState("");
-  const [sortByNameAZ, setSortByNameAZ] = useState(true);
-  const [sortByEmailAZ, setSortByEmailAZ] = useState(true);
+  const [sortConfig, setSortConfig] = useState({
+    field: "name",
+    ascending: true,
+  });
 
+  // delete contact
   const onDelete = (id) => {
     setContacts((previouState) =>
       previouState.filter((item) => item.id !== id)
     );
   };
 
+  // edit contact
   const onEdit = (id) => {
     const [editedRow] = contacts.filter((item) => item.id === id);
     setEditContactData(editedRow);
     setMode("edit");
   };
 
+  // save edited contact
   const onSave = (updateContact) => {
     const newUsersList = contacts.map((contact) => {
       if (contact.id === updateContact.id) {
@@ -51,19 +56,23 @@ function App() {
     setEditContactData(undefined);
   };
 
+  // add new contact
   const onAdd = (newUser) => {
     setContacts([newUser, ...contacts]);
     setMode("home");
   };
 
+  // switch to light mode
   const onLight = () => {
     setTheme("light");
   };
 
+  // switch to dark mode
   const onDark = () => {
     setTheme("dark");
   };
 
+  // search by name and email
   const searchedContact = contacts.filter((contact) => {
     return (
       contact.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -71,9 +80,14 @@ function App() {
     );
   });
 
-  // const sortedNameList = 
-  const sortedList = [...searchedContact].sort((a, b) => a.name < b.name ? -1 : 1);
-  const sortedListCompare = [...searchedContact].sort((a, b) => a.name > b.name ? -1 : 1);
+  // sort by name and email
+  const sortedList = [...searchedContact].sort((a, b) => {
+    const intl = Intl.Collator(undefined, {
+      numeric: true,
+    });
+    let order = intl.compare(a[sortConfig.field], b[sortConfig.field]);
+    return sortConfig.ascending ? order : order * -1;
+  });
 
   return (
     // <ThemeContexts.Provider>
@@ -107,44 +121,45 @@ function App() {
                 <div className="head-texts">
                   <th>
                     Username
-                    <i onClick={() => setSortByNameAZ(!sortByNameAZ)}>
-                      {sortByNameAZ ? (
+                    <i
+                      onClick={() =>
+                        setSortConfig({
+                          field: "name",
+                          ascending: !sortConfig.ascending,
+                        })
+                      }
+                    >
+                      {sortConfig.field === "name" && sortConfig.ascending ? (
                         <AiOutlineSortAscending />
                       ) : (
                         <AiOutlineSortDescending />
                       )}
                     </i>
                   </th>
-                  <th>Email<i onClick={() => setSortByEmailAZ(!sortByEmailAZ)}>
-                      {sortByEmailAZ ? (
+                  <th>
+                    Email
+                    <i
+                      onClick={() =>
+                        setSortConfig({
+                          field: "email",
+                          ascending: !sortConfig.ascending,
+                        })
+                      }
+                    >
+                      {sortConfig.field === "email" && sortConfig.ascending ? (
                         <AiOutlineSortAscending />
                       ) : (
                         <AiOutlineSortDescending />
                       )}
-                    </i></th>
+                    </i>
+                  </th>
                   <th>Password</th>
                 </div>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {sortByNameAZ ? sortedList.map(({ id, name, email, password }) => (
-                <tr className="sor" key={id}>
-                  <td>{name}</td>
-                  <td>{email}</td>
-                  <td>
-                    <PasswordInput value={password} />
-                  </td>
-
-                  <td>
-                    <div className="action-button-container">
-                      <DeleteButton onDelete={() => onDelete(id)} />
-                      <EditButton onEdit={() => onEdit(id)} />
-                    </div>
-                  </td>
-                </tr>
-              )) : 
-              sortedListCompare.map(({ id, name, email, password }) => (
+              {sortedList.map(({ id, name, email, password }) => (
                 <tr className="sor" key={id}>
                   <td>{name}</td>
                   <td>{email}</td>
