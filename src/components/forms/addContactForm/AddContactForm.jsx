@@ -18,7 +18,7 @@ const AddContactForm = ({
 
   const uniqueId = uuid();
 
-  let randomString = (Math.random() + 1).toString(36).substring(7);
+  // let randomString = (Math.random() + 1).toString(36).substring(7);
 
   return (
     <div className="container">
@@ -32,7 +32,7 @@ const AddContactForm = ({
         <Input
           className="form-input"
           onChange={(e) => setName(e.target.value)}
-          value={randomString}
+          // value={randomString}
           defaultValue={contact?.name}
         />
 
@@ -40,7 +40,7 @@ const AddContactForm = ({
         <Input
           className="form-input"
           onChange={(e) => setEmail(e.target.value)}
-          value={randomString}
+          // value={randomString}
           defaultValue={contact?.email}
         />
 
@@ -48,7 +48,7 @@ const AddContactForm = ({
         <Input
           className="form-input"
           onChange={(e) => setPassword(e.target.value)}
-          value={randomString}
+          // value={randomString}
           defaultValue={contact?.password}
         />
 
