@@ -10,7 +10,7 @@ const Input = ({
   required = false,
   value,
   placeholder,
-  disabled
+  disabled,
 }) => {
   return (
     <input

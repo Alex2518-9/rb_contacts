@@ -5,12 +5,10 @@
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
-
-
 .light {
-  --action-button-bg-color:#f1f1f1;
+  --action-button-bg-color: #f1f1f1;
   --action-button-border-color: #c7c7c7;
-  --action-button-bg-hover-color:#f6f6f6;
+  --action-button-bg-hover-color: #f6f6f6;
   --action-button-bg-focus-color: #c7c7c7;
   --bg-color: #fff;
   --font-color: rgba(0, 0, 0, 0.85);
@@ -21,10 +19,10 @@
 }
 
 .dark {
-  --action-button-bg-color:#2a2a2a;
-  --action-button-border-color:#565656;
-  --action-button-bg-hover-color:#3f3f3f;
-  --action-button-bg-focus-color:#1e1e1e;
+  --action-button-bg-color: #2a2a2a;
+  --action-button-border-color: #565656;
+  --action-button-bg-hover-color: #3f3f3f;
+  --action-button-bg-focus-color: #1e1e1e;
   --bg-color: #1e1e1e;
   --font-color: #fff;
   --table-head-bg: #313131;
@@ -38,15 +36,17 @@
   width: 100vw;
   height: 100vh;
   display: flex;
+  align-items: center;
   flex-direction: column;
   background-color: var(--bg-color);
   background-size: cover;
-
 }
 
 .switch {
   width: 100%;
-  padding: 56px 0 0 56px;
+  position: absolute;
+  top: 56px;
+  padding-left: 56px;
 }
 
 .switch-container {
@@ -74,17 +74,27 @@
   cursor: pointer;
 }
 
+.grid-container {
+  width: 1218px;
+  height: 100%;
+}
+
+@media screen and (max-width: 1256px) {
+  .grid-container {
+    width: 100%;
+  }
+}
+
 .contact-container-title {
   display: flex;
-  width: 1218px;
+  max-width: 1218px;
   height: 47px;
-  margin-left: 351px;
   margin-top: 168px;
   justify-content: space-between;
   padding-bottom: 10px;
 }
 
-.contact-container-title .searchInput{
+.contact-container-title .searchInput {
   width: 250px;
   background: var(--table-row-bg);
   border: 1px solid #ff6b35;
@@ -93,7 +103,6 @@
   padding: 5px;
   color: var(--font-color);
 }
-
 
 .contact-container-title h1 {
   color: var(--contact-container-title-color);
@@ -108,60 +117,64 @@
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  width: 1218px;
-  height: 1035px;
-  margin-left: 351px;
+  width: 100%;
   overflow-y: hidden;
 }
 
 .contact-container-body thead {
-  width: 100%;
+  max-width: 1218px;
   height: 56px;
   background: var(--table-head-bg);
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+  align-items: center;
   border-radius: 8px 8px 0 0;
 }
 
 .contact-container-body thead tr {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 200px;
+  width: 100%;
+  height: 100%;
   align-items: center;
-  flex-direction: row;
+  justify-content: center;
   color: var(--font-color);
-  gap: 493px;
 }
 
-.contact-container-body thead .head-texts {
-  width: 564px;
-  display: flex;
-  gap: 254px;
-  margin-left: 15px;
-  align-items: center;
-}
-
-.contact-container-body thead .head-texts th{
+.contact-container-body thead tr th {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 10px;
+  padding-left: 10px;
 }
 
-.contact-container-body thead .head-texts th i{
+.contact-container-body thead tr i {
   font-size: 25px;
   cursor: pointer;
+  padding-left: 15px;
+  align-items: center;
 }
 
-.contact-container-body tbody .sor {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+.table-body {
+  max-width: 1218px;
+}
+.contact-container-body .table-body .sor {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 200px;
+  justify-content: center;
   align-items: center;
-  padding: 10px 24px;
-  gap: 24px;
   color: var(--font-color);
-  width: 100%;
+  max-width: 100%;
   height: 56px;
   background: var(--table-row-bg);
+}
+
+.sor td {
+  padding-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .contact-container-body tbody .sor:nth-child(even) {
@@ -172,18 +185,18 @@
   background-color: var(--table-row-bg-hover);
 }
 
-.contact-container-body tbody .sor i{
+.contact-container-body tbody .sor i {
   padding-left: 10px;
   cursor: pointer;
 }
 
-.contact-container-body tbody .sor input{
+.contact-container-body tbody .sor input {
   width: 60px;
   border: none;
   background: transparent;
   color: var(--font-color);
 }
 
-
-
-
+.action-button-container{
+  width: 200px;
+}

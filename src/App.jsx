@@ -104,7 +104,7 @@ function App() {
       </div>
 
       {mode === "home" && (
-        <>
+        <div className="grid-container">
           <div className="contact-container-title">
             <h1>Contacts</h1>
             {/* <SearchInput  searchedList={contacts}/> */}
@@ -118,47 +118,45 @@ function App() {
           <table className={`contact-container-body`}>
             <thead>
               <tr>
-                <div className="head-texts">
-                  <th>
-                    Username
-                    <i
-                      onClick={() =>
-                        setSortConfig({
-                          field: "name",
-                          ascending: !sortConfig.ascending,
-                        })
-                      }
-                    >
-                      {sortConfig.field === "name" && sortConfig.ascending ? (
-                        <AiOutlineSortAscending />
-                      ) : (
-                        <AiOutlineSortDescending />
-                      )}
-                    </i>
-                  </th>
-                  <th>
-                    Email
-                    <i
-                      onClick={() =>
-                        setSortConfig({
-                          field: "email",
-                          ascending: !sortConfig.ascending,
-                        })
-                      }
-                    >
-                      {sortConfig.field === "email" && sortConfig.ascending ? (
-                        <AiOutlineSortAscending />
-                      ) : (
-                        <AiOutlineSortDescending />
-                      )}
-                    </i>
-                  </th>
-                  <th>Password</th>
-                </div>
-                <th>Action</th>
+                <th className="username-table">
+                  Username
+                  <i
+                    onClick={() =>
+                      setSortConfig({
+                        field: "name",
+                        ascending: !sortConfig.ascending,
+                      })
+                    }
+                  >
+                    {sortConfig.field === "name" && sortConfig.ascending ? (
+                      <AiOutlineSortAscending />
+                    ) : (
+                      <AiOutlineSortDescending />
+                    )}
+                  </i>
+                </th>
+                <th className="email-table">
+                  Email
+                  <i
+                    onClick={() =>
+                      setSortConfig({
+                        field: "email",
+                        ascending: !sortConfig.ascending,
+                      })
+                    }
+                  >
+                    {sortConfig.field === "email" && sortConfig.ascending ? (
+                      <AiOutlineSortAscending />
+                    ) : (
+                      <AiOutlineSortDescending />
+                    )}
+                  </i>
+                </th>
+                <th className="password-table">Password</th>
+                <th className="action-table">Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="table-body">
               {sortedList.map(({ id, name, email, password }) => (
                 <tr className="sor" key={id}>
                   <td>{name}</td>
@@ -167,7 +165,7 @@ function App() {
                     <PasswordInput value={password} />
                   </td>
 
-                  <td>
+                  <td className="action-button-container">
                     <div className="action-button-container">
                       <DeleteButton onDelete={() => onDelete(id)} />
                       <EditButton onEdit={() => onEdit(id)} />
@@ -180,7 +178,7 @@ function App() {
           <CreateButton onClick={() => setMode("add")}>
             <AiOutlinePlus />
           </CreateButton>
-        </>
+        </div>
       )}
 
       {mode === "add" && (
