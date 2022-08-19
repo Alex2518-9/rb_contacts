@@ -28,29 +28,31 @@ const AddContactForm = ({
           {formTitle === "edit" && "Edit Contact"}
         </h2>
 
-        <label className="label">Username</label>
-        <Input
-          className="form-input"
-          onChange={(e) => setName(e.target.value)}
-          // value={randomString}
-          defaultValue={contact?.name}
-        />
+        <div className="input-group">
+          <label className="label">Username</label>
+          <Input
+            className="form-input"
+            onChange={(e) => setName(e.target.value)}
+            defaultValue={contact?.name}
+          />
+        </div>
 
-        <label className="label">Email</label>
-        <Input
-          className="form-input"
-          onChange={(e) => setEmail(e.target.value)}
-          // value={randomString}
-          defaultValue={contact?.email}
-        />
-
-        <label className="label">Password</label>
-        <Input
-          className="form-input"
-          onChange={(e) => setPassword(e.target.value)}
-          // value={randomString}
-          defaultValue={contact?.password}
-        />
+        <div className="input-group">
+          <label className="label">Email</label>
+          <Input
+            className="form-input"
+            onChange={(e) => setEmail(e.target.value)}
+            defaultValue={contact?.email}
+          />
+        </div>
+        <div className="input-group">
+          <label className="label">Password</label>
+          <Input
+            className="form-input"
+            onChange={(e) => setPassword(e.target.value)}
+            defaultValue={contact?.password}
+          />
+        </div>
 
         <div className="button-container">
           <CancelButton onCancel={onCancel} />
