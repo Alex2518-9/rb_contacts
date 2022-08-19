@@ -17,7 +17,6 @@
 
 .input-group {
   position: relative;
-  
 }
 
 .form-input {
@@ -45,12 +44,9 @@
 }
 
 .form-container .label {
-
-
   font-weight: 700;
   margin: 5px 0 3px 0;
   color: var(--font-color);
-
 }
 
 .button-container {
