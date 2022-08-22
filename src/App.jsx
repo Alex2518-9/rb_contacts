@@ -107,7 +107,7 @@ function App() {
         <div className="grid-container">
           <div className="contact-container-title">
             <h1>Contacts</h1>
-
+            {/* <SearchInput  searchedList={contacts}/> */}
             <input
               className="searchInput"
               placeholder="search..."
@@ -159,8 +159,8 @@ function App() {
             <tbody className="table-body">
               {sortedList.map(({ id, name, email, password }) => (
                 <tr className="sor" key={id}>
-                  <td>{<span>{name}</span>}</td>
-                  <td>{<span>{email}</span>}</td>
+                  <td>{name}</td>
+                  <td>{email}</td>
                   <td>
                     <PasswordInput value={password} />
                   </td>
