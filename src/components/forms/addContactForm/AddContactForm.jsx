@@ -12,7 +12,7 @@ const AddContactForm = ({
   onCancel,
   formTitle,
 }) => {
-  const [name, setName] = useState(contact?.name || "");
+  const [username, setUsername] = useState(contact?.name || "");
   const [email, setEmail] = useState(contact?.email || "");
   const [password, setPassword] = useState(contact?.password || "");
 
@@ -32,8 +32,8 @@ const AddContactForm = ({
           <label className="label">Username</label>
           <Input
             className="form-input"
-            onChange={(e) => setName(e.target.value)}
-            defaultValue={contact?.name}
+            onChange={(e) => setUsername(e.target.value)}
+            defaultValue={contact?.username}
           />
         </div>
 
@@ -58,10 +58,10 @@ const AddContactForm = ({
           <CancelButton onCancel={onCancel} />
           {formTitle === "add" && (
             <AddContactFormButton
-              onAdd={() => onAdd({ name, email, password, id: uniqueId })}
+              onAdd={() => onAdd({ username, email, password, id: uniqueId })}
             />
           )}
-          {formTitle === "edit" && confirmButton({ name, email, password })}
+          {formTitle === "edit" && confirmButton({ username, email, password })}
         </div>
       </div>
     </div>
