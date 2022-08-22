@@ -14,12 +14,20 @@ import {
   AiOutlineSortDescending,
 } from "react-icons/ai";
 import PasswordInput from "./components/inputs/passwordInput/PasswordInput";
+import axios from "axios";
+//import { trackPromise } from "react-promise-tracker";
+import Spinner from "./components/spinner/Spinner";
+import { useQuery } from "./components/hooks/useQuery";
 //import SearchInput from "./components/inputs/searchInput/SearchInput";
 
 // export const ThemeContexts = createContext();
 
+const fetchInitialContacts = () =>
+  axios
+    .get("https://dummyjson.com/users")
+    .then((response) => response.data.users);
+
 function App() {
-  const [contacts, setContacts] = useState([]);
   const [mode, setMode] = useState("home");
   const [editContactData, setEditContactData] = useState();
   const [theme, setTheme] = useState("dark");
@@ -28,6 +36,15 @@ function App() {
     field: "name",
     ascending: true,
   });
+
+  // data fetch
+  const {
+    response: contacts,
+    setResponse: setContacts,
+    error,
+    isLoading,
+  } = useQuery(fetchInitialContacts, []);
+
 
   // delete contact
   const onDelete = (id) => {
@@ -75,7 +92,7 @@ function App() {
   // search by name and email
   const searchedContact = contacts.filter((contact) => {
     return (
-      contact.name.toLowerCase().includes(search.toLowerCase()) ||
+      contact.username.toLowerCase().includes(search.toLowerCase()) ||
       contact.email.toLowerCase().includes(search.toLowerCase())
     );
   });
@@ -107,7 +124,7 @@ function App() {
         <div className="grid-container">
           <div className="contact-container-title">
             <h1>Contacts</h1>
-            {/* <SearchInput  searchedList={contacts}/> */}
+
             <input
               className="searchInput"
               placeholder="search..."
@@ -115,6 +132,7 @@ function App() {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
+
           <table className={`contact-container-body`}>
             <thead>
               <tr>
@@ -123,12 +141,12 @@ function App() {
                   <i
                     onClick={() =>
                       setSortConfig({
-                        field: "name",
+                        field: "username",
                         ascending: !sortConfig.ascending,
                       })
                     }
                   >
-                    {sortConfig.field === "name" && sortConfig.ascending ? (
+                    {sortConfig.field === "username" && sortConfig.ascending ? (
                       <AiOutlineSortAscending />
                     ) : (
                       <AiOutlineSortDescending />
@@ -156,10 +174,23 @@ function App() {
                 <th className="action-table">Action</th>
               </tr>
             </thead>
+            {isLoading ? (
+              <div className="spinner">
+                <Spinner />
+              </div>
+            ) : (
+              <div>
+                {error && (
+                  <div>
+                    <p>{(error.message = "Page not found 404")}</p>
+                  </div>
+                )}
+              </div>
+            )}
             <tbody className="table-body">
-              {sortedList.map(({ id, name, email, password }) => (
+              {sortedList.map(({ id, username, email, password }) => (
                 <tr className="sor" key={id}>
-                  <td>{name}</td>
+                  <td>{username}</td>
                   <td>{email}</td>
                   <td>
                     <PasswordInput value={password} />
