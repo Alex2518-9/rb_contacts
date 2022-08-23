@@ -1,20 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 
-const useQuery = (callbackFn, defaultValue) => {
-  const [response, setResponse] = useState(defaultValue);
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+const useQuery = (callbackFn, config = {}) => {
+  const [fetchData, setFechData] = useState({ status: "loading" });
 
   const getData = useCallback(async () => {
-    setIsLoading(true);
+    setFechData({ status: "loading" });
     try {
       const data = await callbackFn();
-      setError("");
-      setResponse(data);
+      setFechData({ status: "success", data });
     } catch (error) {
-      setError(error);
-    } finally {
-      setIsLoading(false);
+      setFechData({ status: "error", error });
     }
   }, [callbackFn]);
 
@@ -23,10 +18,9 @@ const useQuery = (callbackFn, defaultValue) => {
   }, [getData]);
 
   return {
-    isLoading,
-    error,
-    response,
-    setResponse,
+    fetchingData: fetchData.data || config.defaultValue,
+    error: fetchData.error,
+    isLoading: fetchData.status === "loading",
   };
 };
 
