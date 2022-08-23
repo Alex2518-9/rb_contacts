@@ -15,10 +15,8 @@ import {
 } from "react-icons/ai";
 import PasswordInput from "./components/inputs/passwordInput/PasswordInput";
 import axios from "axios";
-//import { trackPromise } from "react-promise-tracker";
 import Spinner from "./components/spinner/Spinner";
 import { useQuery } from "./components/hooks/useQuery";
-//import SearchInput from "./components/inputs/searchInput/SearchInput";
 
 // export const ThemeContexts = createContext();
 
@@ -36,46 +34,50 @@ function App() {
     field: "name",
     ascending: true,
   });
+  const [contactContainer, setContactContainer] = useState([]);
 
   // data fetch
-  const {
-    response: contacts,
-    setResponse: setContacts,
-    error,
-    isLoading,
-  } = useQuery(fetchInitialContacts, []);
+  const { fetchingData, error, isLoading } = useQuery(fetchInitialContacts, {
+    defaultValue: [],
+  });
+
 
 
   // delete contact
   const onDelete = (id) => {
-    setContacts((previouState) =>
+    setContactContainer(fetchingData)
+    setContactContainer((previouState) =>
       previouState.filter((item) => item.id !== id)
     );
   };
 
   // edit contact
   const onEdit = (id) => {
-    const [editedRow] = contacts.filter((item) => item.id === id);
+    const [editedRow] = contactContainer.filter((item) => item.id === id);
     setEditContactData(editedRow);
     setMode("edit");
   };
 
   // save edited contact
   const onSave = (updateContact) => {
-    const newUsersList = contacts.map((contact) => {
+    setContactContainer(fetchingData)
+    const newUsersList = contactContainer.map((contact) => {
       if (contact.id === updateContact.id) {
         return updateContact;
       }
       return contact;
     });
-    setContacts(newUsersList);
+    setContactContainer(newUsersList);
     setMode("home");
     setEditContactData(undefined);
   };
 
   // add new contact
   const onAdd = (newUser) => {
-    setContacts([newUser, ...contacts]);
+    setContactContainer(fetchingData);
+    console.log(newUser);
+    setContactContainer([newUser, ...contactContainer]);
+    console.log(contactContainer);
     setMode("home");
   };
 
@@ -90,7 +92,7 @@ function App() {
   };
 
   // search by name and email
-  const searchedContact = contacts.filter((contact) => {
+  const searchedContact = contactContainer.filter((contact) => {
     return (
       contact.username.toLowerCase().includes(search.toLowerCase()) ||
       contact.email.toLowerCase().includes(search.toLowerCase())
@@ -174,36 +176,38 @@ function App() {
                 <th className="action-table">Action</th>
               </tr>
             </thead>
-            {isLoading ? (
-              <div className="spinner">
-                <Spinner />
-              </div>
-            ) : (
-              <div>
-                {error && (
-                  <div>
-                    <p>{(error.message = "Page not found 404")}</p>
-                  </div>
-                )}
-              </div>
-            )}
-            <tbody className="table-body">
-              {sortedList.map(({ id, username, email, password }) => (
-                <tr className="sor" key={id}>
-                  <td>{username}</td>
-                  <td>{email}</td>
-                  <td>
-                    <PasswordInput value={password} />
-                  </td>
 
-                  <td className="action-button-container">
-                    <div className="action-button-container">
-                      <DeleteButton onDelete={() => onDelete(id)} />
-                      <EditButton onEdit={() => onEdit(id)} />
+            <tbody className="table-body">
+              {isLoading ? (
+                <div className="spinner">
+                  <Spinner />
+                </div>
+              ) : (
+                <div>
+                  {error && (
+                    <div>
+                      <p>{error.message}</p>
                     </div>
-                  </td>
-                </tr>
-              ))}
+                  )}
+                </div>
+              )}
+              {contactContainer &&
+                sortedList.map(({ id, username, email, password }) => (
+                  <tr className="sor" key={id}>
+                    <td>{username}</td>
+                    <td>{email}</td>
+                    <td>
+                      <PasswordInput value={password} />
+                    </td>
+
+                    <td className="action-button-container">
+                      <div className="action-button-container">
+                        <DeleteButton onDelete={() => onDelete(id)} />
+                        <EditButton onEdit={() => onEdit(id)} />
+                      </div>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
           <CreateButton onClick={() => setMode("add")}>
