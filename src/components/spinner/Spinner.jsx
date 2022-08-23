@@ -1,13 +1,11 @@
 import React from "react";
-import { usePromiseTracker } from "react-promise-tracker";
 import { Audio } from "react-loader-spinner";
 
 const Spinner = () => {
-  const { promiseInProgress } = usePromiseTracker();
+
 
   return (
     <>
-      {promiseInProgress ? (
         <div>
           <Audio
             height="150"
@@ -19,7 +17,6 @@ const Spinner = () => {
             wrapperClass
           />
         </div>
-      ) : null}
     </>
   );
 };
