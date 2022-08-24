@@ -17,13 +17,30 @@ import PasswordInput from "./components/inputs/passwordInput/PasswordInput";
 import axios from "axios";
 import Spinner from "./components/spinner/Spinner";
 import { useQuery } from "./components/hooks/useQuery";
-
 // export const ThemeContexts = createContext();
 
-const fetchInitialContacts = () =>
-  axios
-    .get("https://dummyjson.com/users")
-    .then((response) => response.data.users);
+// generete random number for error test
+const generateErrorNumber = Math.floor(Math.random() * 10);
+console.log(generateErrorNumber);
+
+
+// for useQuery
+const fetchInitialContacts = () => {
+  if (generateErrorNumber === 9) {
+    axios
+      .get("https://dummyjson.com/users")
+      .then(() => {
+        return Promise.reject("error");
+      })
+      .catch((error) => {
+        return  error;
+      });
+  } else {
+   return axios
+      .get("https://dummyjson.com/users")
+      .then((response) => response.data.users);
+  }
+};
 
 function App() {
   const [mode, setMode] = useState("home");
@@ -34,50 +51,45 @@ function App() {
     field: "name",
     ascending: true,
   });
-  const [contactContainer, setContactContainer] = useState([]);
 
   // data fetch
-  const { fetchingData, error, isLoading } = useQuery(fetchInitialContacts, {
+  const { data, error, isLoading, setData } = useQuery(fetchInitialContacts, {
     defaultValue: [],
   });
 
-
+  console.log(data);
 
   // delete contact
   const onDelete = (id) => {
-    setContactContainer(fetchingData)
-    setContactContainer((previouState) =>
-      previouState.filter((item) => item.id !== id)
-    );
+    const shorterContactList = data.filter((item) => item.id !== id);
+    setData(shorterContactList);
   };
 
   // edit contact
   const onEdit = (id) => {
-    const [editedRow] = contactContainer.filter((item) => item.id === id);
+    const [editedRow] = data.filter((item) => item.id === id);
     setEditContactData(editedRow);
     setMode("edit");
   };
 
   // save edited contact
   const onSave = (updateContact) => {
-    setContactContainer(fetchingData)
-    const newUsersList = contactContainer.map((contact) => {
+    const newUsersList = data.map((contact) => {
       if (contact.id === updateContact.id) {
         return updateContact;
       }
       return contact;
     });
-    setContactContainer(newUsersList);
+    setData(newUsersList);
     setMode("home");
     setEditContactData(undefined);
   };
 
   // add new contact
   const onAdd = (newUser) => {
-    setContactContainer(fetchingData);
     console.log(newUser);
-    setContactContainer([newUser, ...contactContainer]);
-    console.log(contactContainer);
+    setData([newUser, ...data]);
+
     setMode("home");
   };
 
@@ -92,7 +104,7 @@ function App() {
   };
 
   // search by name and email
-  const searchedContact = contactContainer.filter((contact) => {
+  const searchedContact = data.filter((contact) => {
     return (
       contact.username.toLowerCase().includes(search.toLowerCase()) ||
       contact.email.toLowerCase().includes(search.toLowerCase())
@@ -191,7 +203,7 @@ function App() {
                   )}
                 </div>
               )}
-              {contactContainer &&
+              {data &&
                 sortedList.map(({ id, username, email, password }) => (
                   <tr className="sor" key={id}>
                     <td>{username}</td>
