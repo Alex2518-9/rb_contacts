@@ -21,22 +21,13 @@ import { useQuery } from "./components/hooks/useQuery";
 
 // generete random number for error test
 const generateErrorNumber = Math.floor(Math.random() * 10);
-console.log(generateErrorNumber);
-
 
 // for useQuery
 const fetchInitialContacts = () => {
   if (generateErrorNumber === 9) {
-    axios
-      .get("https://dummyjson.com/users")
-      .then(() => {
-        return Promise.reject("error");
-      })
-      .catch((error) => {
-        return  error;
-      });
+    return Promise.reject({ message: "failed" });
   } else {
-   return axios
+    return axios
       .get("https://dummyjson.com/users")
       .then((response) => response.data.users);
   }
@@ -56,8 +47,6 @@ function App() {
   const { data, error, isLoading, setData } = useQuery(fetchInitialContacts, {
     defaultValue: [],
   });
-
-  console.log(data);
 
   // delete contact
   const onDelete = (id) => {
@@ -198,7 +187,7 @@ function App() {
                 <div>
                   {error && (
                     <div>
-                      <p>{error.message}</p>
+                      <p className="error-message">{error.message}</p>
                     </div>
                   )}
                 </div>
