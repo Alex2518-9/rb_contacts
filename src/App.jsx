@@ -17,6 +17,7 @@ import PasswordInput from "./components/inputs/passwordInput/PasswordInput";
 import axios from "axios";
 import Spinner from "./components/spinner/Spinner";
 import { useQuery } from "./components/hooks/useQuery";
+
 // export const ThemeContexts = createContext();
 
 // generete random number for error test
@@ -100,6 +101,13 @@ function App() {
     );
   });
 
+
+  const splitSearchedContacts = search.split("");
+  console.log(splitSearchedContacts);
+
+
+
+
   // sort by name and email
   const sortedList = [...searchedContact].sort((a, b) => {
     const intl = Intl.Collator(undefined, {
@@ -108,6 +116,10 @@ function App() {
     let order = intl.compare(a[sortConfig.field], b[sortConfig.field]);
     return sortConfig.ascending ? order : order * -1;
   });
+
+  const highLightSearchedContacts = sortedList.map(({username, email}) => {
+    username.split("")
+})
 
   return (
     // <ThemeContexts.Provider>
@@ -134,6 +146,7 @@ function App() {
                   className="searchInput"
                   placeholder="search..."
                   type="text"
+                  name="keyword"
                   onChange={(e) => setSearch(e.target.value)}
                 />
               </div>
