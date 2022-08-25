@@ -168,7 +168,6 @@
   max-width: 1218px;
   height: 1035px;
   overflow-y: scroll;
-  
 }
 
 .table-body::-webkit-scrollbar {
@@ -219,5 +218,9 @@
 .spinner {
   display: flex;
   justify-content: center;
-  
+}
+
+.error-message {
+  color: red;
+  font-size: 3em;
 }
