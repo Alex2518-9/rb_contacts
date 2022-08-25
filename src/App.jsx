@@ -124,93 +124,97 @@ function App() {
       </div>
 
       {mode === "home" && (
-        <div className="grid-container">
-          <div className="contact-container-title">
-            <h1>Contacts</h1>
+        <div>
+          <div className="grid-container">
+            <div className="contact-container-title-container">
+              <div className="contact-container-title">
+                <h1>Contacts</h1>
 
-            <input
-              className="searchInput"
-              placeholder="search..."
-              type="text"
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
+                <input
+                  className="searchInput"
+                  placeholder="search..."
+                  type="text"
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </div>
+            </div>
+            <table className={`contact-container-body`}>
+              <thead>
+                <tr>
+                  <th className="username-table">
+                    Username
+                    <i
+                      onClick={() =>
+                        setSortConfig({
+                          field: "username",
+                          ascending: !sortConfig.ascending,
+                        })
+                      }
+                    >
+                      {sortConfig.field === "username" &&
+                      sortConfig.ascending ? (
+                        <AiOutlineSortAscending />
+                      ) : (
+                        <AiOutlineSortDescending />
+                      )}
+                    </i>
+                  </th>
+                  <th className="email-table">
+                    Email
+                    <i
+                      onClick={() =>
+                        setSortConfig({
+                          field: "email",
+                          ascending: !sortConfig.ascending,
+                        })
+                      }
+                    >
+                      {sortConfig.field === "email" && sortConfig.ascending ? (
+                        <AiOutlineSortAscending />
+                      ) : (
+                        <AiOutlineSortDescending />
+                      )}
+                    </i>
+                  </th>
+                  <th className="password-table">Password</th>
+                  <th className="action-table">Action</th>
+                </tr>
+              </thead>
 
-          <table className={`contact-container-body`}>
-            <thead>
-              <tr>
-                <th className="username-table">
-                  Username
-                  <i
-                    onClick={() =>
-                      setSortConfig({
-                        field: "username",
-                        ascending: !sortConfig.ascending,
-                      })
-                    }
-                  >
-                    {sortConfig.field === "username" && sortConfig.ascending ? (
-                      <AiOutlineSortAscending />
-                    ) : (
-                      <AiOutlineSortDescending />
-                    )}
-                  </i>
-                </th>
-                <th className="email-table">
-                  Email
-                  <i
-                    onClick={() =>
-                      setSortConfig({
-                        field: "email",
-                        ascending: !sortConfig.ascending,
-                      })
-                    }
-                  >
-                    {sortConfig.field === "email" && sortConfig.ascending ? (
-                      <AiOutlineSortAscending />
-                    ) : (
-                      <AiOutlineSortDescending />
-                    )}
-                  </i>
-                </th>
-                <th className="password-table">Password</th>
-                <th className="action-table">Action</th>
-              </tr>
-            </thead>
-
-            <tbody className="table-body">
-              {isLoading ? (
-                <div className="spinner">
-                  <Spinner />
-                </div>
-              ) : (
-                <div>
-                  {error && (
-                    <div>
-                      <p className="error-message">{error.message}</p>
-                    </div>
-                  )}
-                </div>
-              )}
-              {data &&
-                sortedList.map(({ id, username, email, password }) => (
-                  <tr className="sor" key={id}>
-                    <td>{username}</td>
-                    <td>{email}</td>
-                    <td>
-                      <PasswordInput value={password} />
-                    </td>
-
-                    <td className="action-button-container">
-                      <div className="action-button-container">
-                        <DeleteButton onDelete={() => onDelete(id)} />
-                        <EditButton onEdit={() => onEdit(id)} />
+              <tbody className="table-body">
+                {isLoading ? (
+                  <div className="spinner">
+                    <Spinner />
+                  </div>
+                ) : (
+                  <div>
+                    {error && (
+                      <div>
+                        <p className="error-message">{error.message}</p>
                       </div>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
+                    )}
+                  </div>
+                )}
+                {data &&
+                  sortedList.map(({ id, username, email, password }) => (
+                    <tr className="sor" key={id}>
+                      <td>{username}</td>
+                      <td>{email}</td>
+                      <td>
+                        <PasswordInput value={password} />
+                      </td>
+
+                      <td className="action-button-container">
+                        <div className="action-button-container">
+                          <DeleteButton onDelete={() => onDelete(id)} />
+                          <EditButton onEdit={() => onEdit(id)} />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
           <CreateButton onClick={() => setMode("add")}>
             <AiOutlinePlus />
           </CreateButton>
