@@ -101,12 +101,17 @@ function App() {
     );
   });
 
+  // console.log(searchIndexContainer);
+  // const splitSearchedContacts = search.split("");
+  // console.log(splitSearchedContacts);
 
-  const splitSearchedContacts = search.split("");
-  console.log(splitSearchedContacts);
-
-
-
+  // const highlightWord = () => {
+  //   if (search) {
+  //     const word = search.trim();
+  //     const regexp = new RegExp(word, "g");
+  //     setSearch(search.replace(regexp, `<mark>${word}</mark>`));
+  //   }
+  // };
 
   // sort by name and email
   const sortedList = [...searchedContact].sort((a, b) => {
@@ -117,9 +122,36 @@ function App() {
     return sortConfig.ascending ? order : order * -1;
   });
 
-  const highLightSearchedContacts = sortedList.map(({username, email}) => {
-    username.split("")
-})
+  // which row which index username
+  const searchIndexUsername = [...sortedList].map((index) => {
+    const ind = index.username.indexOf(search);
+
+    return ind >= 0 ? ind : null;
+  });
+
+  console.log(searchIndexUsername);
+
+  // which row which index email
+  const searchIndexEmail = [...sortedList].map((index) => {
+    const ind = index.email.indexOf(search);
+
+    return ind >= 0 ? ind : null;
+  });
+  console.log(searchIndexEmail);
+
+  const searchedWord = sortedList.map((word) => {
+    const words = word.username.slice(searchIndexUsername, search.length);
+    return words;
+  });
+
+  console.log(searchedWord);
+
+  const searchedWordEmail = sortedList.map((word) => {
+    const words = word.email.slice(searchIndexEmail, search.length);
+    return words;
+  });
+
+  console.log(searchedWordEmail);
 
   return (
     // <ThemeContexts.Provider>
