@@ -17,6 +17,7 @@ import PasswordInput from "./components/inputs/passwordInput/PasswordInput";
 import axios from "axios";
 import Spinner from "./components/spinner/Spinner";
 import { useQuery } from "./components/hooks/useQuery";
+import { highLightText } from "./utils/highlight";
 
 // export const ThemeContexts = createContext();
 
@@ -101,20 +102,8 @@ function App() {
     );
   });
 
-  // console.log(searchIndexContainer);
-  // const splitSearchedContacts = search.split("");
-  // console.log(splitSearchedContacts);
-
-  // const highlightWord = () => {
-  //   if (search) {
-  //     const word = search.trim();
-  //     const regexp = new RegExp(word, "g");
-  //     setSearch(search.replace(regexp, `<mark>${word}</mark>`));
-  //   }
-  // };
-
   // sort by name and email
-  const sortedList = [...searchedContact].sort((a, b) => {
+  const visibleContacts = [...searchedContact].sort((a, b) => {
     const intl = Intl.Collator(undefined, {
       numeric: true,
     });
@@ -122,36 +111,14 @@ function App() {
     return sortConfig.ascending ? order : order * -1;
   });
 
-  // which row which index username
-  const searchIndexUsername = [...sortedList].map((index) => {
-    const ind = index.username.indexOf(search);
-
-    return ind >= 0 ? ind : null;
+  // highlight search results
+  const highLight = [...visibleContacts].map((contacts) => {
+    return (
+      console.log(highLightText(contacts.username, search)) ||
+      console.log(highLightText(contacts.email, search))
+    );
   });
 
-  console.log(searchIndexUsername);
-
-  // which row which index email
-  const searchIndexEmail = [...sortedList].map((index) => {
-    const ind = index.email.indexOf(search);
-
-    return ind >= 0 ? ind : null;
-  });
-  console.log(searchIndexEmail);
-
-  const searchedWord = sortedList.map((word) => {
-    const words = word.username.slice(searchIndexUsername, search.length);
-    return words;
-  });
-
-  console.log(searchedWord);
-
-  const searchedWordEmail = sortedList.map((word) => {
-    const words = word.email.slice(searchIndexEmail, search.length);
-    return words;
-  });
-
-  console.log(searchedWordEmail);
 
   return (
     // <ThemeContexts.Provider>
@@ -225,7 +192,7 @@ function App() {
                   <th className="action-table">Action</th>
                 </tr>
               </thead>
-
+              {/* <Highlighted text={sortedList} highlight={search} /> */}
               <tbody className="table-body">
                 {isLoading ? (
                   <div className="spinner">
@@ -241,7 +208,7 @@ function App() {
                   </div>
                 )}
                 {data &&
-                  sortedList.map(({ id, username, email, password }) => (
+                  visibleContacts.map(({ id, username, email, password }) => (
                     <tr className="sor" key={id}>
                       <td>{username}</td>
                       <td>{email}</td>
