@@ -111,15 +111,6 @@ function App() {
     return sortConfig.ascending ? order : order * -1;
   });
 
-  // highlight search results
-  const highLight = [...visibleContacts].map((contacts) => {
-    return (
-      console.log(highLightText(contacts.username, search)) ||
-      console.log(highLightText(contacts.email, search))
-    );
-  });
-
-
   return (
     // <ThemeContexts.Provider>
     <div className={`App ${theme}`}>
@@ -192,7 +183,7 @@ function App() {
                   <th className="action-table">Action</th>
                 </tr>
               </thead>
-              {/* <Highlighted text={sortedList} highlight={search} /> */}
+
               <tbody className="table-body">
                 {isLoading ? (
                   <div className="spinner">
@@ -210,8 +201,20 @@ function App() {
                 {data &&
                   visibleContacts.map(({ id, username, email, password }) => (
                     <tr className="sor" key={id}>
-                      <td>{username}</td>
-                      <td>{email}</td>
+                      <td>
+                        {highLightText(username, search).map(
+                          ({ char, highlight }) => {
+                            return highlight === "" ? (
+                              username
+                            ) : highlight ? (
+                              <span style={{ color: "#ff6b35" }}>{char}</span>
+                            ) : (
+                              <span>{char}</span>
+                            );
+                          }
+                        )}
+                      </td>
+                      <td>{highLightText(email, search)}</td>
                       <td>
                         <PasswordInput value={password} />
                       </td>
