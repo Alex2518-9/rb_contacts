@@ -1,0 +1,244 @@
+//unshift()
+let arr = [4, 5, 6];
+
+arr.unshift(1, 2, 3);
+console.log(arr);
+ [1, 2, 3, 4, 5, 6]
+
+arr = [4, 5, 6]; // resetting the array
+
+arr.unshift(1);
+arr.unshift(2);
+arr.unshift(3);
+
+console.log(arr);
+ [3, 2, 1, 4, 5, 6]
+
+ // some()
+ let arr = [4, 5, 6];
+
+arr.unshift(1, 2, 3);
+console.log(arr);
+[1, 2, 3, 4, 5, 6]
+
+arr = [4, 5, 6]; // resetting the array
+
+arr.unshift(1);
+arr.unshift(2);
+arr.unshift(3);
+
+console.log(arr);
+[3, 2, 1, 4, 5, 6]
+
+
+// splice()
+const months = ['Jan', 'March', 'April', 'June'];
+months.splice(1, 0, 'Feb');
+inserts at index 1
+console.log(months);
+expected output: Array ["Jan", "Feb", "March", "April", "June"]
+
+months.splice(4, 1, 'May');
+replaces 1 element at index 4
+console.log(months);
+expected output: Array ["Jan", "Feb", "March", "April", "May"]
+
+
+// slice()
+const animals = ['ant', 'bison', 'camel', 'duck', 'elephant'];
+
+console.log(animals.slice(2));
+expected output: Array ["camel", "duck", "elephant"]
+
+console.log(animals.slice(2, 4));
+expected output: Array ["camel", "duck"]
+
+console.log(animals.slice(1, 5));
+expected output: Array ["bison", "camel", "duck", "elephant"]
+
+console.log(animals.slice(-2));
+expected output: Array ["duck", "elephant"]
+
+console.log(animals.slice(2, -1));
+expected output: Array ["camel", "duck"]
+
+console.log(animals.slice());
+expected output: Array ["ant", "bison", "camel", "duck", "elephant"]
+
+
+// shift()
+const array1 = [1, 2, 3];
+
+const firstElement = array1.shift();
+
+console.log(array1);
+expected output: Array [2, 3]
+
+console.log(firstElement);
+expected output: 1
+
+
+// reverse()
+const array1 = ['one', 'two', 'three'];
+console.log('array1:', array1);
+expected output: "array1:" Array ["one", "two", "three"]
+
+const reversed = array1.reverse();
+console.log('reversed:', reversed);
+expected output: "reversed:" Array ["three", "two", "one"]
+
+Careful: reverse is destructive -- it changes the original array.
+console.log('array1:', array1);
+expected output: "array1:" Array ["three", "two", "one"]
+
+const obj = {0: 1, 1: 2, 2: 3, length: 3};
+console.log(obj); // {0: 1, 1: 2, 2: 3, length: 3}
+
+Array.prototype.reverse.call(obj); //same syntax for using apply()
+console.log(obj); // {0: 3, 1: 2, 2: 1, length: 3}
+
+
+// reduceRight()
+const array1 = [[0, 1], [2, 3], [4, 5]];
+
+const result = array1.reduceRight((accumulator, currentValue) => accumulator.concat(currentValue));
+
+console.log(result);
+expected output: Array [4, 5, 2, 3, 0, 1]
+
+const sum = [0, 1, 2, 3].reduceRight((a, b) => a + b);
+sum is 6
+
+
+// Array.of()
+Array.of(7); // [7]
+Array(7); // array of 7 empty slots
+
+Array.of(1, 2, 3); // [1, 2, 3]
+Array(1, 2, 3);    // [1, 2, 3]
+
+
+// lastIndexOf()
+const animals = ['Dodo', 'Tiger', 'Penguin', 'Dodo'];
+
+console.log(animals.lastIndexOf('Dodo'));
+expected output: 3
+
+console.log(animals.lastIndexOf('Tiger'));
+expected output: 1
+
+lastIndexOf(searchElement)
+lastIndexOf(searchElement, fromIndex)
+
+
+// keys()
+const array1 = ['a', 'b', 'c'];
+const iterator = array1.keys();
+
+for (const key of iterator) {
+  console.log(key);
+}
+
+expected output: 0
+expected output: 1
+expected output: 2
+
+
+// join()
+const elements = ['Fire', 'Air', 'Water'];
+
+console.log(elements.join());
+expected output: "Fire,Air,Water"
+
+console.log(elements.join(''));
+expected output: "FireAirWater"
+
+console.log(elements.join('-'));
+expected output: "Fire-Air-Water"
+
+
+// indexOf()
+const beasts = ['ant', 'bison', 'camel', 'duck', 'bison'];
+
+console.log(beasts.indexOf('bison'));
+expected output: 1
+
+start from index 2
+console.log(beasts.indexOf('bison', 2));
+expected output: 4
+
+console.log(beasts.indexOf('giraffe'));
+expected output: -1
+
+indexOf(searchElement)
+indexOf(searchElement, fromIndex)
+
+
+// includes() (=== equals)
+const array1 = [1, 2, 3];
+
+console.log(array1.includes(2));
+expected output: true
+
+const pets = ['cat', 'dog', 'bat'];
+
+console.log(pets.includes('cat'));
+expected output: true
+
+console.log(pets.includes('at'));
+expected output: false
+
+includes(searchElement)
+includes(searchElement, fromIndex)
+
+
+// groupToMap()
+const inventory = [
+  { name: 'asparagus', type: 'vegetables', quantity: 9 },
+  { name: 'bananas',  type: 'fruit', quantity: 5 },
+  { name: 'goat', type: 'meat', quantity: 23 },
+  { name: 'cherries', type: 'fruit', quantity: 12 },
+  { name: 'fish', type: 'meat', quantity: 22 }
+];
+
+const restock  = { restock: true };
+const sufficient = { restock: false };
+const result = inventory.groupToMap(({ quantity }) => quantity < 6 ? restock : sufficient);
+
+console.log(result.get(restock));
+expected output: Array [Object { name: "bananas", type: "fruit", quantity: 5 }]
+
+
+// group()
+const inventory = [
+  { name: 'asparagus', type: 'vegetables', quantity: 5 },
+  { name: 'bananas',  type: 'fruit', quantity: 0 },
+  { name: 'goat', type: 'meat', quantity: 23 },
+  { name: 'cherries', type: 'fruit', quantity: 5 },
+  { name: 'fish', type: 'meat', quantity: 22 }
+];
+
+const result = inventory.group(({ type }) => type);
+
+ Result is:
+{
+  vegetables: [
+    { name: 'asparagus', type: 'vegetables', quantity: 5 },
+  ],
+  fruit: [
+    { name: "bananas", type: "fruit", quantity: 0 },
+    { name: "cherries", type: "fruit", quantity: 5 }
+  ],
+  meat: [
+    { name: "goat", type: "meat", quantity: 23 },
+    { name: "fish", type: "meat", quantity: 22 }
+  ]
+}
+
+
+// from()
+console.log(Array.from('foo'));
+expected output: Array ["f", "o", "o"]
+
+console.log(Array.from([1, 2, 3], x => x + x));
+expected output: Array [2, 4, 6]
