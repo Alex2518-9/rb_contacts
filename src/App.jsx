@@ -203,18 +203,24 @@ function App() {
                     <tr className="sor" key={id}>
                       <td>
                         {highLightText(username, search).map(
-                          ({ char, highlight }) => {
-                            return highlight === "" ? (
-                              username
-                            ) : highlight ? (
-                              <span style={{ color: "#ff6b35" }}>{char}</span>
+                          ({ part, highlight }) =>
+                            highlight ? (
+                              <span style={{ color: "#ff6b35" }}>{part}</span>
                             ) : (
-                              <span>{char}</span>
-                            );
-                          }
+                              <span>{part}</span>
+                            )
                         )}
                       </td>
-                      <td>{highLightText(email, search)}</td>
+                      <td>
+                        {highLightText(email, search).map(
+                          ({ part, highlight }) =>
+                            highlight ? (
+                              <span style={{ color: "#ff6b35" }}>{part}</span>
+                            ) : (
+                              <span>{part}</span>
+                            )
+                        )}
+                      </td>
                       <td>
                         <PasswordInput value={password} />
                       </td>

@@ -1,20 +1,17 @@
 export const highLightText = (text, search) => {
   if (search.length === 0) {
-    return [text];
+    return [{ part: text, highlight: false }];
   }
   let result = [];
-  let highlight = true;
   for (let i = 0; i < text.length; i++) {
     const part = text.substring(i, i + search.length);
     if (part.toLowerCase() === search.toLowerCase()) {
-      const up = part.toUpperCase();
-      result.push({char: up, highlight});
+      result.push({ part, highlight: true });
       i += search.length - 1;
     } else {
-      result.push({char: text[i], higlight:!highlight});
+      result.push({ part: text[i], highlight: false });
     }
   }
   console.log(result);
   return result;
-  
 };
