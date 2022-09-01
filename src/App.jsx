@@ -39,7 +39,7 @@ function App() {
   const [mode, setMode] = useState("home");
   const [editContactData, setEditContactData] = useState();
   const [theme, setTheme] = useState("dark");
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState([]);
   const [sortConfig, setSortConfig] = useState({
     field: "name",
     ascending: true,
@@ -96,10 +96,14 @@ function App() {
 
   // search by name and email
   const searchedContact = data.filter((contact) => {
-    return (
-      contact.username.toLowerCase().includes(search.toLowerCase()) ||
-      contact.email.toLowerCase().includes(search.toLowerCase())
-    );
+    
+    return search.length === 0 ? true : 
+     (
+        
+        search.some((characters) => contact.username.toLowerCase().includes(characters.toLowerCase()))) ||
+        search.some((characters) => contact.email.toLowerCase().includes(characters.toLowerCase())
+
+        );
   });
 
   // sort by name and email
@@ -137,7 +141,8 @@ function App() {
                   placeholder="search..."
                   type="text"
                   name="keyword"
-                  onChange={(e) => setSearch(e.target.value)}
+                  // value={search}
+                  onChange={(e) => setSearch(e.target.value ? e.target.value.trim().split(" ") : [])}
                 />
               </div>
             </div>

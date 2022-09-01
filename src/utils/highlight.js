@@ -4,12 +4,14 @@ export const highLightText = (text, search) => {
   }
   let result = [];
   for (let i = 0; i < text.length; i++) {
-    const part = text.substring(i, i + search.length);
-    if (part.toLowerCase() === search.toLowerCase()) {
-      result.push({ part, highlight: true });
-      i += search.length - 1;
-    } else {
-      result.push({ part: text[i], highlight: false });
+    for (const word of search) {
+      const part = text.substring(i, i + word.length);
+      if (part.toLowerCase() === word.toLowerCase()) {
+        result.push({ part, highlight: true });
+        i += word.length - 1;
+      } else {
+        result.push({ part: text[i], highlight: false });
+      }
     }
   }
   console.log(result);
