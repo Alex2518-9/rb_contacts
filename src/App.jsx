@@ -98,11 +98,9 @@ function App() {
   const searchedContact = data.filter((contact) => {
     
     return search.length === 0 ? true : 
-     (
-        
-        search.some((characters) => contact.username.toLowerCase().includes(characters.toLowerCase()))) ||
-        search.some((characters) => contact.email.toLowerCase().includes(characters.toLowerCase())
-
+     (     
+        search.every((characters) => contact.username.toLowerCase().includes(characters.toLowerCase()))) ||
+        search.every((characters) => contact.email.toLowerCase().includes(characters.toLowerCase())
         );
   });
 
@@ -142,7 +140,7 @@ function App() {
                   type="text"
                   name="keyword"
                   // value={search}
-                  onChange={(e) => setSearch(e.target.value ? e.target.value.trim().split(" ") : [])}
+                  onChange={(e) => setSearch(e.target.value.trim() ? e.target.value.trim().split(" ") : [])}
                 />
               </div>
             </div>
