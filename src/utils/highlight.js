@@ -3,30 +3,39 @@ export const highLightText = (text, search) => {
     return [{ part: text, highlight: false }];
   }
   let result = [];
-  let final = [];
+
   for (const word of search) {
-    const arr = [];
+    const divorcedArray = [];
     for (let i = 0; i < text.length; i++) {
       const part = text.substring(i, i + word.length);
       if (part.toLowerCase() === word.toLowerCase()) {
         if (part.length > 0) {
           for (const char of part) {
-            arr.push({ part: char, highlight: true });
+            divorcedArray.push({ part: char, highlight: true });
           }
         } else {
-          arr.push({ part, highlight: true });
+          divorcedArray.push({ part, highlight: true });
         }
         i += word.length - 1;
       } else {
-        arr.push({ part: text[i], highlight: false });
+        divorcedArray.push({ part: text[i], highlight: false });
       }
     }
-    final = {...arr[0]}
-    result.push(arr);
+
+    result.push(divorcedArray);
   }
+  // console.log(text);
+  // console.log(result);
 
-  console.log(text);
-  console.log(result);
-
-  return result;
+  let final = [...result[0]];
+  for (let i = 1; i < result.length; i++) {
+    for (let j = 0; j < final.length; j++) {
+      if (result[i][j].highlight) {
+        final[j] =  result[i][j];
+        // final.splice(j, 1, result[i][j]);
+      }
+    }
+  }
+  // console.log(final);
+  return final;
 };

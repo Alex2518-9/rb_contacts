@@ -139,7 +139,7 @@ function App() {
                   placeholder="search..."
                   type="text"
                   name="keyword"
-                  // value={search}
+                  defaultValue={search.join(" ")}
                   onChange={(e) => setSearch(e.target.value.trim() ? e.target.value.trim().split(" ") : [])}
                 />
               </div>
