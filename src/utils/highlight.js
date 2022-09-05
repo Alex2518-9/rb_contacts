@@ -4,6 +4,7 @@ export const highLightText = (text, search) => {
   }
   let result = [];
 
+  // divorce the input data
   for (const word of search) {
     const divorcedArray = [];
     for (let i = 0; i < text.length; i++) {
@@ -24,9 +25,8 @@ export const highLightText = (text, search) => {
 
     result.push(divorcedArray);
   }
-  // console.log(text);
-  // console.log(result);
 
+  // merge the final array
   let final = [...result[0]];
   for (let i = 1; i < result.length; i++) {
     for (let j = 0; j < final.length; j++) {
@@ -36,6 +36,6 @@ export const highLightText = (text, search) => {
       }
     }
   }
-  // console.log(final);
+  console.log(final);
   return final;
 };
