@@ -96,12 +96,14 @@ function App() {
 
   // search by name and email
   const searchedContact = data.filter((contact) => {
-    
-    return search.length === 0 ? true : 
-     (     
-        search.every((characters) => contact.username.toLowerCase().includes(characters.toLowerCase()))) ||
-        search.every((characters) => contact.email.toLowerCase().includes(characters.toLowerCase())
-        );
+    return search.length === 0
+      ? true
+      : search.every((characters) =>
+          contact.username.toLowerCase().includes(characters.toLowerCase())
+        ) ||
+          search.every((characters) =>
+            contact.email.toLowerCase().includes(characters.toLowerCase())
+          );
   });
 
   // sort by name and email
@@ -140,7 +142,13 @@ function App() {
                   type="text"
                   name="keyword"
                   defaultValue={search.join(" ")}
-                  onChange={(e) => setSearch(e.target.value.trim() ? e.target.value.trim().split(" ") : [])}
+                  onChange={(e) =>
+                    setSearch(
+                      e.target.value.trim()
+                        ? e.target.value.trim().split(" ")
+                        : []
+                    )
+                  }
                 />
               </div>
             </div>
@@ -215,14 +223,18 @@ function App() {
                         )}
                       </td>
                       <td>
-                        {highLightText(email, search).map(
-                          ({ part, highlight }) =>
-                            highlight ? (
-                              <span style={{ color: "#ff6b35" }}>{part}</span>
-                            ) : (
-                              <span>{part}</span>
-                            )
-                        )}
+                        { highLightText(email, search).map((word) => {
+              
+                        })
+                           
+                          //   console.log(finalText);
+                          //  return ( highlight ? (
+                          //     <span style={{ color: "#ff6b35" }}>{part}</span>
+                          //   ) : (
+                          //     <span>{part}</span>
+                          //   )
+                          //   )})
+                        }
                       </td>
                       <td>
                         <PasswordInput value={password} />
