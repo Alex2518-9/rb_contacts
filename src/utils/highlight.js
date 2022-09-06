@@ -31,11 +31,26 @@ export const highLightText = (text, search) => {
   for (let i = 1; i < result.length; i++) {
     for (let j = 0; j < final.length; j++) {
       if (result[i][j].highlight) {
-        final[j] =  result[i][j];
+        final[j] = result[i][j];
         // final.splice(j, 1, result[i][j]);
       }
     }
   }
-  console.log(final);
-  return final;
+
+  let finalResult = [];
+  let highlight = final[0].highlight;
+  let chunk = final[0].part;
+
+  for (let i = 1; i < final.length; i++) {
+    if (final[i].highlight === highlight) {
+      chunk += final[i].part;
+    } else {
+      finalResult.push({ part: chunk, highlight });
+      chunk = final[i].part;
+      highlight = !highlight;
+    }
+  }
+  finalResult.push({ part: chunk, highlight });
+
+  return finalResult;
 };
