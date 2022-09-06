@@ -29,9 +29,13 @@ const fetchInitialContacts = () => {
   if (generateErrorNumber === 9) {
     return Promise.reject({ message: "failed" });
   } else {
-    return axios
-      .get("https://dummyjson.com/users")
-      .then((response) => response.data.users);
+    return axios.get("https://dummyjson.com/users").then((response) => {
+      const dataMap = new Map();
+      response.data.users.forEach((user) => {
+        dataMap.set(user.id, user);
+      });
+      return dataMap;
+    });
   }
 };
 
@@ -49,6 +53,7 @@ function App() {
   const { data, error, isLoading, setData } = useQuery(fetchInitialContacts, {
     defaultValue: [],
   });
+ 
 
   // delete contact
   const onDelete = (id) => {
@@ -223,18 +228,14 @@ function App() {
                         )}
                       </td>
                       <td>
-                        { highLightText(email, search).map((word) => {
-              
-                        })
-                           
-                          //   console.log(finalText);
-                          //  return ( highlight ? (
-                          //     <span style={{ color: "#ff6b35" }}>{part}</span>
-                          //   ) : (
-                          //     <span>{part}</span>
-                          //   )
-                          //   )})
-                        }
+                        {highLightText(email, search).map(
+                          ({ part, highlight }) =>
+                            highlight ? (
+                              <span style={{ color: "#ff6b35" }}>{part}</span>
+                            ) : (
+                              <span>{part}</span>
+                            )
+                        )}
                       </td>
                       <td>
                         <PasswordInput value={password} />

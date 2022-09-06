@@ -6,7 +6,9 @@ const useQuery = (callbackFn, config = {}) => {
   const getData = useCallback(async () => {
     setQueryState({ status: "loading" });
     try {
+    
       const data = await callbackFn();
+      
       setQueryState({ status: "success", data });
     } catch (error) {
       setQueryState({ status: "error", error });
