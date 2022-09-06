@@ -53,30 +53,26 @@ function App() {
   const { data, error, isLoading, setData } = useQuery(fetchInitialContacts, {
     defaultValue: [],
   });
- 
 
   // delete contact
   const onDelete = (id) => {
-    const shorterContactList = data.filter((item) => item.id !== id);
+    const shorterContactList = new Map(data);
+    shorterContactList.delete(id);
     setData(shorterContactList);
   };
 
   // edit contact
   const onEdit = (id) => {
-    const [editedRow] = data.filter((item) => item.id === id);
+    const editedRow = data.get(id);
     setEditContactData(editedRow);
     setMode("edit");
   };
 
   // save edited contact
   const onSave = (updateContact) => {
-    const newUsersList = data.map((contact) => {
-      if (contact.id === updateContact.id) {
-        return updateContact;
-      }
-      return contact;
-    });
-    setData(newUsersList);
+    const newUsersMap = new Map(data);
+    newUsersMap.set(updateContact.id, updateContact);
+    setData(newUsersMap);
     setMode("home");
     setEditContactData(undefined);
   };
@@ -84,7 +80,7 @@ function App() {
   // add new contact
   const onAdd = (newUser) => {
     console.log(newUser);
-    setData([newUser, ...data]);
+    setData([newUser, ...data.values()]);
 
     setMode("home");
   };
@@ -100,7 +96,7 @@ function App() {
   };
 
   // search by name and email
-  const searchedContact = data.filter((contact) => {
+  const searchedContact = [...data.values()].filter((contact) => {
     return search.length === 0
       ? true
       : search.every((characters) =>
